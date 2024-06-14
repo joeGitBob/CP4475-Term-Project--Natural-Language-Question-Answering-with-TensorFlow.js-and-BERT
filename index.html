@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>CP4475 Term Project</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"></script>
+    <script src="passage.js"></script>
+</head>
+<body>
+    
+    <h1>Natural Language Question Answering</h1>
+    <p>Ask a Question about Rome</p>
+    <input id="userInput" type="text" placeholder="Type your question here">
+    <button onclick="getAnswer()">></button>
+    <div id="loadingStatus">Loading...</div>
+    <div id="answer"></div>
+    
+    <script>
+        let model;
+        
+        async function loadModel() {
+            model = await qna.load();
+            document.getElementById('loadingStatus').textContent = "Ready";
+        }
+
+        function getAnswer() {
+            const question = document.getElementById('userInput').value;
+            <!-- document.getElementById('answer').textContent = 'Searching...';  -->
+            model.findAnswers(question, passage).then(answers => {
+                const answer = answers[0]?.text || 'No answer found.';
+                document.getElementById('answer').textContent = answer;
+            });
+        };
+
+
+        window.onload = loadModel;
+    </script>
+</body>
+</html>
