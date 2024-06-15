@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"></script>
-    <!-- <script src="passage.js"></script> -->
+    
 </head>
 <body>
     
@@ -27,7 +27,7 @@
             model = await qna.load();
             document.getElementById('loadingStatus').textContent = "Ready";
         
-            // Hide the message after 10 seconds
+            
             setTimeout(() => {
                 document.getElementById('loadingStatus').textContent = "";
             }, 10000); 
