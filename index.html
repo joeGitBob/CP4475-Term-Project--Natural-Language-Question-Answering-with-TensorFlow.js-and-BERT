@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"></script>
-    <script src="passage.js"></script>
+    <!-- <script src="passage.js"></script> -->
 </head>
 <body>
     
@@ -21,24 +21,32 @@
     
     <script>
         let model;
+        let data;
         
         async function loadModel() {
             model = await qna.load();
             document.getElementById('loadingStatus').textContent = "Ready";
+        
+            // Hide the message after 10 seconds
+            setTimeout(() => {
+                document.getElementById('loadingStatus').textContent = "";
+            }, 10000); // 10 seconds in milliseconds
+        }
 
-                // Hide the message after 10 seconds
-                setTimeout(() => {
-                document.getElementById('loadingStatus').style.display = 'none';
-                }, 10000); /
-}
+        fetch("RomanHistory.txt")
+                .then((res) => res.text())
+                .then((text) => {
+                    data = text;
+                })
+                .catch((e) => console.error(e));
+        
 
-        //Get answer
         function getAnswer() {
             const question = document.getElementById('userInput').value;
-            document.getElementById('answer').textContent = 'Searching...';
+            document.getElementById('answer').textContent = 'Searching...';  
             model.findAnswers(question, passage).then(answers => {
                 const answer = answers[0]?.text || 'No answer found.';
-                document.getElementById('answer').textContent = answer; //display answer
+                document.getElementById('answer').textContent = answer;
             });
         };
 
