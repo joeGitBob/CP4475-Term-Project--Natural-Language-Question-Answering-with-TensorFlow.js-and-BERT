@@ -44,7 +44,7 @@
         function getAnswer() {
             const question = document.getElementById('userInput').value;
             document.getElementById('answer').textContent = 'Searching...';  
-            model.findAnswers(question, passage).then(answers => {
+            model.findAnswers(question, data).then(answers => {
                 const answer = answers[0]?.text || 'No answer found.';
                 document.getElementById('answer').textContent = answer;
             });
